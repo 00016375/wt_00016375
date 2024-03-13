@@ -1,0 +1,52 @@
+include ../head.pug
+body
+  .container.mt-5
+    h1 #{mode}
+    .mb-3
+      label(for="recipeName" class="form-label") Recipe Name
+      input(type="text" class="form-control" id="recipeName" name="recipeName" required)
+    .mb-3
+        label(for="ingredients" class="form-label") Ingredients 
+        input(type="text" class="form-control" id="ingredients" name="ingredients" required)
+    .mb-3
+      label(for="steps" class="form-label") Steps 
+      input(type="text" class="form-control" id="steps" name="steps" required)
+    .mb-3
+      label(for="category" class="form-label") Category 
+      input(type="text" class="form-control" id="category" name="category" required)
+    button(type="submit" class="btn btn-success" onclick="submitForm()") #{mode === 'Update' ? 'Update' : 'Add'}
+    span &nbsp;
+    button(type="submit" class="btn btn-primary" onclick="window.location.href='/'") Back to list
+
+  script.
+    if ("#{mode}" === "Update") {
+      const recipeData = !{JSON.stringify(recipeData || {})}.recipe;
+      document.getElementById('recipeName').value = recipeData.recipeName || '';
+      document.getElementById('ingredients').value = recipeData.ingredients  || '';
+      document.getElementById('steps').value = recipeData.steps  || '';
+      document.getElementById('category').value = recipeData.category || '';
+    }
+
+    function submitForm() {
+      const recipeData = {
+        recipeName: document.getElementById('recipeName').value,
+        ingredients: document.getElementById('ingredients').value,
+        steps: document.getElementById('steps').value,
+        category: document.getElementById('category').value,
+      };
+
+      const url = "#{mode}" === "Update" ? `/api/recipe/${!{JSON.stringify(recipeData || {})}.id}` : '/api/recipe';
+      const method = "#{mode}" === "Update" ? 'put' : 'post';
+
+      axios[method](url, recipeData).then(response => {
+        alert('Success!');
+        location.href = '/'
+      })
+      .catch(error => {
+        console.log(error)
+        if(error.response)
+          alert(JSON.stringify(error.response.data.errors))
+        else
+          alert(error)
+      });
+    }
