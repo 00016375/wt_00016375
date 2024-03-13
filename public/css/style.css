@@ -1,0 +1,36 @@
+/*Changing buttons color*/
+.btn-success {
+    background-color: rgb(69, 16, 102);
+    color: white;
+  }
+  
+  .btn-primary {
+    background-color: rgb(225, 194, 20);
+    color: white;
+  }
+  
+  .btn-danger {
+    background-color: rgb(129, 31, 31);
+    color: white;
+  }
+  
+/*Changing table's style*/
+.table {
+    border: 2px solid #000000;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    background-color: #0e38ac;
+  }
+/*Changing the font and font-size of paragraph which was created to fulfill requerments of cw*/
+  p {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+  }
+  
